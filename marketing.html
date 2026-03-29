@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitsAI — Your AI-powered wardrobe stylist</title>
+  <meta name="description" content="FitsAI helps you discover outfits from the clothes you already own. Add your wardrobe, pick a vibe, and let AI style you in seconds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #FAFAF8;
+      --surface:  #F5F3EF;
+      --elevated: #FFFFFF;
+      --pink:     #E8B4B8;
+      --warm:     #D4A89A;
+      --text:     #1A1A1A;
+      --muted:    #8A8680;
+      --faint:    #C4C0BB;
+      --border:   #E8E4DF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: 0.3px;
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.75; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 24px 72px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+      margin-bottom: 20px;
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 52px;
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--warm);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 420px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 13px 28px;
+      border-radius: 20px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.15s;
+    }
+
+    .btn-primary:hover { opacity: 0.75; }
+
+    .btn-primary svg { width: 16px; height: 16px; }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--faint);
+    }
+
+    /* hero visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone-frame {
+      width: 220px;
+      height: 440px;
+      background: var(--elevated);
+      border-radius: 36px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(26,26,26,0.10), 0 4px 16px rgba(26,26,26,0.06);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .phone-inner {
+      padding: 20px 14px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phone-header {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .phone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .phone-card {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .phone-card-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      background: var(--surface);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .phone-card-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      border: 0.5px solid var(--border);
+    }
+
+    .ai-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: var(--text);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.3px;
+    }
+
+    .phone-pill-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .phone-pill {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 10px;
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .phone-pill.active {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+    }
+
+    /* second phone, offset */
+    .phone-frame-2 {
+      width: 180px;
+      height: 360px;
+      background: var(--elevated);
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 48px rgba(26,26,26,0.08), 0 3px 12px rgba(26,26,26,0.05);
+      overflow: hidden;
+      position: absolute;
+      right: -40px;
+      top: 40px;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phone-outfit-card {
+      flex: 1;
+      background: var(--surface);
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .outfit-items-preview {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
+    .outfit-item-block {
+      background: var(--elevated);
+      border-radius: 8px;
+      border: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .outfit-item-block.lg { width: 52px; height: 64px; }
+    .outfit-item-block.sm { width: 40px; height: 50px; }
+
+    .outfit-label {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      font-style: italic;
+    }
+
+    .swipe-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .swipe-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .swipe-btn.like {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .visual-wrap {
+      position: relative;
+      width: 260px;
+      height: 460px;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 72px 24px;
+    }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      max-width: 560px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+
+    /* ── FEATURES GRID ── */
+    .features {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .feature-cell {
+      background: var(--elevated);
+      padding: 32px 28px;
+    }
+
+    .feature-cell:nth-child(n+4) {
+      border-top: 2px solid var(--surface);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--surface);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .feature-cell h3 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .feature-cell p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 16px;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step-num {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 40px;
+      color: var(--pink);
+      line-height: 1;
+    }
+
+    .step h3 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--text);
+      color: #fff;
+      text-align: center;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .cta-band .section-title {
+      color: #fff;
+      margin: 0 auto 14px;
+    }
+
+    .cta-band .section-sub {
+      color: rgba(255,255,255,0.55);
+      margin: 0 auto 36px;
+    }
+
+    .cta-band .btn-primary {
+      background: #fff;
+      color: var(--text);
+    }
+
+    .cta-band .btn-primary:hover { opacity: 0.85; }
+
+    .cta-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      font-size: 13px;
+      color: var(--faint);
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 52px 20px 48px;
+        gap: 40px;
+      }
+
+      .hero h1 { font-size: 38px; }
+
+      .hero-visual { display: none; }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-cell:nth-child(n+4) {
+        border-top: 2px solid var(--surface);
+      }
+
+      .feature-cell:nth-child(n+2) {
+        border-top: 2px solid var(--surface);
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .section-title { font-size: 28px; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">FitsAI</a>
+      <a class="nav-cta" href="https://apps.apple.com/app/fitsai/id6744534890">Download free</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Available on the App Store
+      </div>
+      <h1>Style yourself smarter, with AI.</h1>
+      <p class="hero-sub">FitsAI turns your wardrobe into a personal style engine. Photograph your clothes, tell the AI your vibe, and get real outfit ideas from what you actually own — in seconds.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://apps.apple.com/app/fitsai/id6744534890">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on the App Store
+        </a>
+      </div>
+      <p class="hero-note" style="margin-top: 14px;">Free to use · iOS 17+ · No account required</p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="visual-wrap">
+        <div class="phone-frame">
+          <div class="phone-inner">
+            <div class="phone-header">my wardrobe</div>
+            <div class="phone-pill-row">
+              <div class="phone-pill active">all</div>
+              <div class="phone-pill">tops</div>
+              <div class="phone-pill">bottoms</div>
+            </div>
+            <div class="phone-grid">
+              <div class="phone-card-img">👕</div>
+              <div class="phone-card-img">👗</div>
+              <div class="phone-card-img">🧥</div>
+              <div class="phone-card-img">👖
+                <span class="ai-badge">AI tagged</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-frame-2">
+          <div style="font-family:'DM Serif Display',Georgia,serif; font-size:13px; color:var(--text);">explore</div>
+          <div class="phone-outfit-card">
+            <div class="outfit-items-preview">
+              <div class="outfit-item-block sm">🧥</div>
+              <div class="outfit-item-block lg">👗</div>
+              <div class="outfit-item-block sm">👟</div>
+            </div>
+            <div class="outfit-label">Casual Friday</div>
+          </div>
+          <div class="swipe-btns">
+            <div class="swipe-btn">✕</div>
+            <div class="swipe-btn like">♥</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-inner">
+      <div class="features-grid">
+
+        <div class="feature-cell">
+          <div class="feature-icon">✨</div>
+          <h3>AI outfit generation</h3>
+          <p>Pick an occasion and vibe. FitsAI mixes and matches your actual clothing into cohesive outfits you'd never have thought of on your own.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-icon">📸</div>
+          <h3>Instant wardrobe scanning</h3>
+          <p>Photograph a garment and the AI strips the background, identifies the category, colour, and style tags — ready to use in seconds.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-icon">🗂</div>
+          <h3>Outfit builder canvas</h3>
+          <p>Drag, scale, and rotate your items on a freeform canvas to design looks and save them as Fitboards for future reference.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-icon">🔍</div>
+          <h3>Shop what's missing</h3>
+          <p>The Finds feature surfaces real product recommendations that complement your existing wardrobe — so you shop with intention, not impulse.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-icon">📅</div>
+          <h3>Outfit calendar</h3>
+          <p>Plan and log what you wear each day. See patterns in your style over time and never forget a favourite look.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-icon">🔒</div>
+          <h3>Private by design</h3>
+          <p>Your photos and wardrobe data are yours. FitsAI never sells your data or makes your items visible to other users.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="section-inner">
+      <p class="section-tag">How it works</p>
+      <h2 class="section-title">From photo to outfit in three steps.</h2>
+      <p class="section-sub">No manual sorting, no endless tagging. FitsAI does the heavy lifting so you can focus on getting dressed.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Photograph your clothes</h3>
+          <p>Take a photo of any garment. FitsAI removes the background automatically and uses AI to tag the category, colour, and style — no input needed from you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Set your vibe</h3>
+          <p>Choose an occasion (work, casual, date night…), a mood, and the weather. FitsAI uses your selections as the brief for the AI stylist.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Swipe, save, wear</h3>
+          <p>Browse AI-generated outfit cards, swipe right to save the ones you love, and build a personal lookbook from your own wardrobe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="section-inner" style="text-align:center;">
+      <p class="section-tag" style="color: rgba(255,255,255,0.35);">Get started</p>
+      <h2 class="section-title" style="margin: 0 auto 14px;">Your wardrobe, finally working for you.</h2>
+      <p class="section-sub" style="margin: 0 auto 36px;">FitsAI is free to download. Start with the clothes you already have.</p>
+      <a class="btn-primary" href="https://apps.apple.com/app/fitsai/id6744534890">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <p class="cta-note">Free · iOS 17+ · No account required</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span>© 2026 JPS Digital Ventures</span>
+      <div class="footer-links">
+        <a href="privacypolicy.html">Privacy</a>
+        <a href="termsofservice.html">Terms</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:jpsdigitalventures@gmail.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

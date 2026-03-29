@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — FitsAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #FAFAF8;
+      color: #1A1A1A;
+      line-height: 1.7;
+      padding: 0 20px 80px;
+    }
+
+    .wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 56px 0 32px;
+      border-bottom: 1px solid #E8E4DF;
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 22px;
+      color: #1A1A1A;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    header h1 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 36px;
+      font-weight: 400;
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-size: 15px;
+      color: #8A8680;
+    }
+
+    .contact-card {
+      background: #FFFFFF;
+      border: 1px solid #E8E4DF;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: #F5F3EF;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+
+    .contact-card h2 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .contact-card p {
+      font-size: 14px;
+      color: #8A8680;
+      margin-bottom: 14px;
+    }
+
+    .contact-card a {
+      display: inline-block;
+      background: #1A1A1A;
+      color: #fff;
+      font-family: "DM Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 20px;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      transition: opacity 0.15s;
+    }
+
+    .contact-card a:hover { opacity: 0.75; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #8A8680;
+      margin-bottom: 20px;
+    }
+
+    .faq-list {
+      margin-bottom: 48px;
+    }
+
+    details {
+      border-bottom: 1px solid #E8E4DF;
+    }
+
+    details:first-of-type {
+      border-top: 1px solid #E8E4DF;
+    }
+
+    summary {
+      list-style: none;
+      padding: 18px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1A1A1A;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      font-size: 20px;
+      font-weight: 400;
+      color: #C4C0BB;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    details[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-body {
+      padding: 0 0 18px;
+      font-size: 14px;
+      color: #8A8680;
+      line-height: 1.7;
+    }
+
+    .faq-body a {
+      color: #E8B4B8;
+      text-decoration: none;
+    }
+
+    .faq-body a:hover { text-decoration: underline; }
+
+    .links-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .link-pill {
+      font-size: 13px;
+      font-weight: 500;
+      color: #8A8680;
+      background: #F5F3EF;
+      border: 0.5px solid #E8E4DF;
+      border-radius: 20px;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .link-pill:hover { background: #ECEAE6; }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #E8E4DF;
+      font-size: 13px;
+      color: #C4C0BB;
+      text-align: center;
+    }
+
+    footer a {
+      color: #8A8680;
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="logo">FitsAI</div>
+      <h1>Support</h1>
+      <p>We're here to help. Find answers below or reach out directly.</p>
+    </header>
+
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <h2>Get in touch</h2>
+        <p>For questions, bug reports, or account help, email us and we'll get back to you within 1–2 business days.</p>
+        <a href="mailto:jpsdigitalventures@gmail.com">jpsdigitalventures@gmail.com</a>
+      </div>
+    </div>
+
+    <p class="section-label">Frequently asked questions</p>
+
+    <div class="faq-list">
+
+      <details>
+        <summary>How does FitsAI generate outfit ideas?</summary>
+        <div class="faq-body">
+          FitsAI uses an AI language model (via OpenRouter) to suggest outfit combinations based on items already in your wardrobe. You choose the occasion, vibe, and weather, and the AI composes a look using your actual clothing.
+        </div>
+      </details>
+
+      <details>
+        <summary>Where are my photos stored?</summary>
+        <div class="faq-body">
+          Your wardrobe photos are stored locally on your device and, if you are signed in, backed up to Firebase Cloud Storage under your anonymous user ID. Photos are never shared with or accessible by other users. See our <a href="privacypolicy.html">Privacy Policy</a> for full details.
+        </div>
+      </details>
+
+      <details>
+        <summary>What does FitsAI Pro include?</summary>
+        <div class="faq-body">
+          FitsAI Pro unlocks unlimited wardrobe items, unlimited AI outfit generation, and access to the Finds feature for shopping recommendations. Pro is available as a monthly or annual subscription.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I cancel my subscription?</summary>
+        <div class="faq-body">
+          Subscriptions are managed entirely through the App Store. To cancel, open the Settings app on your iPhone → tap your name → Subscriptions → FitsAI → Cancel Subscription. Cancelling takes effect at the end of the current billing period.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I restore a previous purchase?</summary>
+        <div class="faq-body">
+          Inside FitsAI, go to your Profile tab and tap "Restore Purchases." If you were previously subscribed with the same Apple ID, your Pro access will be reinstated at no charge.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I delete my data?</summary>
+        <div class="faq-body">
+          Yes. To delete all your data, email us at <a href="mailto:jpsdigitalventures@gmail.com">jpsdigitalventures@gmail.com</a> with the subject line "Data Deletion Request." We will remove your account and associated data within 30 days. You can also delete individual wardrobe items directly within the app.
+        </div>
+      </details>
+
+      <details>
+        <summary>The background removal isn't working — what should I do?</summary>
+        <div class="faq-body">
+          Background removal runs on a cloud service that may occasionally experience a cold start (up to 30 seconds on first use). If it fails, try again in a moment. Make sure you have an active internet connection. If the issue persists, please contact us.
+        </div>
+      </details>
+
+      <details>
+        <summary>FitsAI isn't recognising my clothing correctly. Can I fix the tags?</summary>
+        <div class="faq-body">
+          AI tagging can occasionally make mistakes. You can edit any item's name, category, and colour directly by tapping on it in your wardrobe. We're continuously improving the tagging model.
+        </div>
+      </details>
+
+      <details>
+        <summary>Which iPhone models are supported?</summary>
+        <div class="faq-body">
+          FitsAI requires iOS 17 or later and runs on any iPhone supported by iOS 17. The app is optimised for the current iPhone screen sizes.
+        </div>
+      </details>
+
+    </div>
+
+    <p class="section-label">Legal</p>
+    <div class="links-row">
+      <a class="link-pill" href="privacypolicy.html">Privacy Policy</a>
+      <a class="link-pill" href="termsofservice.html">Terms of Service</a>
+    </div>
+
+    <footer>
+      <p>© 2026 JPS Digital Ventures &nbsp;·&nbsp; <a href="mailto:jpsdigitalventures@gmail.com">jpsdigitalventures@gmail.com</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>
